@@ -190,6 +190,10 @@
     <Compile Include="Migrations\201704131933280_PopulateGenresTable.Designer.cs">
       <DependentUpon>201704131933280_PopulateGenresTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704160253578_AddForeignKeyPropertiesToGig.cs" />
+    <Compile Include="Migrations\201704160253578_AddForeignKeyPropertiesToGig.Designer.cs">
+      <DependentUpon>201704160253578_AddForeignKeyPropertiesToGig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -281,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704131933280_PopulateGenresTable.resx">
       <DependentUpon>201704131933280_PopulateGenresTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160253578_AddForeignKeyPropertiesToGig.resx">
+      <DependentUpon>201704160253578_AddForeignKeyPropertiesToGig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
