@@ -1,4 +1,7 @@
-﻿namespace GigHub.ViewModels
+﻿using GigHub.Models;
+using System.Collections.Generic;
+
+namespace GigHub.ViewModels
 {
     public class GigFormViewModel
     {
