@@ -1,0 +1,13 @@
+﻿@model IEnumerable<GigHub.Models.Following>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Artists I'm Following</h2>
+
+<ul>
+    @foreach (var following in Model)
+    {
+        <li>@following.Artist.Name</li>
+    }
+</ul>
