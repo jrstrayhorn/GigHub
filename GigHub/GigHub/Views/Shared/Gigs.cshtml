@@ -22,7 +22,7 @@
                     @gig.Artist.Name
 
                     @if(Model.ShowActions) { 
-                    <button class="btn btn-default btn-sm pull-right js-toggle-following" data-artist-id="@gig.ArtistId">Follow ?</button>
+                    <button class="btn btn-link btn-sm js-toggle-following" data-artist-id="@gig.ArtistId">Follow ?</button>
                     }
                 </span>
                 <span class="genre">
@@ -59,8 +59,6 @@
                 $.post("/api/followings", { artistId: button.attr("data-artist-id") })
                 .done(function () {
                     button
-                        .removeClass("btn-default")
-                        .addClass("btn-info")
                         .text("Following");
                 })
                 .fail(function () {
