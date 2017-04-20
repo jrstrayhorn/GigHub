@@ -142,11 +142,13 @@ h6,
     position: absolute;
     top: 0;
     left: 70px;
+    width: 225px;
 }
 
 .gigs > li .details .artist {
     font-weight: bold;
     display: block;
+    padding-bottom: 10px;
 }
 
     .gigs > li .details .genre {

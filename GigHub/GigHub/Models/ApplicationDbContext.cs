@@ -8,6 +8,7 @@ namespace GigHub.Models
         public DbSet<Gig> Gigs { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Following> Followings { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -25,6 +26,11 @@ namespace GigHub.Models
             // so if Gig is deleted it won't delete attendance records
             modelBuilder.Entity<Attendance>()
                 .HasRequired(a => a.Gig)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Following>()
+                .HasRequired(f => f.Follower)
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
