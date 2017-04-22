@@ -21,21 +21,28 @@
                 <span class="artist">
                     @gig.Artist.Name
 
-                    @if(Model.ShowActions) { 
-                    <button class="btn btn-link btn-sm js-toggle-following" data-artist-id="@gig.ArtistId">Follow ?</button>
+                    @if (gig.IsCanceled)
+                    {
+                        <span class="label label-warning">Canceled</span>
+                    }
+
+                    @if (Model.ShowActions)
+                    {
+                        <button class="btn btn-link btn-sm js-toggle-following" data-artist-id="@gig.ArtistId">Follow ?</button>
                     }
                 </span>
                 <span class="genre">
                     @gig.Genre.Name
                 </span>
-                @if(Model.ShowActions) { 
-                <button class="btn btn-default btn-sm pull-right js-toggle-attendance" data-gig-id="@gig.Id">Going ?</button>
+                @if (Model.ShowActions && !gig.IsCanceled)
+                {
+                    <button class="btn btn-default btn-sm pull-right js-toggle-attendance" data-gig-id="@gig.Id">Going ?</button>
                 }
             </div>
         </li>
     }
 </ul>
-@section scripts 
+@section scripts
 {
     <script>
         $(document).ready(function () {
