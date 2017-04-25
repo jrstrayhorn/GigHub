@@ -109,7 +109,8 @@ namespace GigHub.Controllers
                 Time = gig.DateTime.ToString("HH:mm"),
                 ShowActions = IsAuthenticated,
                 UserAttending = IsAttending,
-                UserFollowing = IsFollowing
+                UserFollowing = IsFollowing,
+                ArtistId = gig.Artist.Id
             };
 
             return View(viewModel);
