@@ -8,6 +8,8 @@ namespace GigHub.Core.Persistence
         IFollowingRepository Followings { get; }
         IGenreRepository Genres { get; }
         IGigRepository Gigs { get; }
+        INotificationRepository Notifications { get; }
+        IUserNotificationRepository UserNotifications { get; }
 
         void Complete();
     }

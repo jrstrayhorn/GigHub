@@ -52,9 +52,32 @@ namespace GigHub.Persistence.Repositories
                 .ToList();
         }
 
+
         public void Add(Gig gig)
         {
             _context.Gigs.Add(gig);
+        }
+
+        public IEnumerable<Gig> GetUpcomingGigsBySearch(string query)
+        {
+            return _context.Gigs
+                .Include(g => g.Artist)
+                .Include(g => g.Genre)
+                .Where(g => g.DateTime > DateTime.Now && !g.IsCanceled)
+                .Where(g =>
+                            g.Artist.Name.Contains(query) ||
+                            g.Genre.Name.Contains(query) ||
+                            g.Venue.Contains(query))
+                .ToList();
+        }
+
+        public IEnumerable<Gig> GetUpcomingGigs()
+        {
+            return _context.Gigs
+                .Include(g => g.Artist)
+                .Include(g => g.Genre)
+                .Where(g => g.DateTime > DateTime.Now && !g.IsCanceled)
+                .ToList();
         }
     }
 }

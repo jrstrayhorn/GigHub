@@ -1,7 +1,7 @@
-﻿using GigHub.Dtos;
-using GigHub.Models;
+﻿using GigHub.Core.Dtos;
+using GigHub.Core.Models;
+using GigHub.Core.Persistence;
 using Microsoft.AspNet.Identity;
-using System.Linq;
 using System.Web.Http;
 
 namespace GigHub.Controllers.Api
@@ -9,11 +9,11 @@ namespace GigHub.Controllers.Api
     [Authorize]
     public class FollowingsController : ApiController
     {
-        private ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public FollowingsController()
+        public FollowingsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -26,7 +26,7 @@ namespace GigHub.Controllers.Api
                 return BadRequest("You can't follow yourself.");
             }
 
-            if (_context.Followings.Any(f => f.FollowerId == userId && f.ArtistId == dto.ArtistId))
+            if (_unitOfWork.Followings.GetFollowing(userId, dto.ArtistId) != null)
             {
                 return BadRequest("You've already followed this artist.");
             }
@@ -37,8 +37,8 @@ namespace GigHub.Controllers.Api
                 ArtistId = dto.ArtistId
             };
 
-            _context.Followings.Add(following);
-            _context.SaveChanges();
+            _unitOfWork.Followings.Add(following);
+            _unitOfWork.Complete();
 
             return Ok();
         }
@@ -46,16 +46,15 @@ namespace GigHub.Controllers.Api
         [HttpDelete]
         public IHttpActionResult UnFollow(string id)
         {
-            var userId = User.Identity.GetUserId();
-
-            var following = _context.Followings
-                .SingleOrDefault(f => f.FollowerId == userId && f.ArtistId == id);
+            var following = _unitOfWork
+                .Followings
+                .GetFollowing(User.Identity.GetUserId(), id);
 
             if (following == null)
                 return NotFound();
 
-            _context.Followings.Remove(following);
-            _context.SaveChanges();
+            _unitOfWork.Followings.Remove(following);
+            _unitOfWork.Complete();
 
             return Ok();
         }
